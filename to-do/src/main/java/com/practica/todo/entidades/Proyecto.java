@@ -1,4 +1,4 @@
-package com.practica.to_do.entidades;
+package com.practica.todo.entidades;
 
 import java.time.LocalDateTime;
 import java.util.List;

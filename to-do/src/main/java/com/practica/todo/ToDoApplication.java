@@ -1,4 +1,4 @@
-package com.practica.to_do;
+package com.practica.todo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.practica.to_do.entidades;
+package com.practica.todo.entidades;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;

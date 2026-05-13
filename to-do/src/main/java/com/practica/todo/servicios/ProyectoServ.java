@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.practica.todo.entidades.Proyecto;
 import com.practica.todo.entidades.Role;
-import com.practica.todo.entidades.Tarea;
 import com.practica.todo.entidades.Usuario;
 import com.practica.todo.repositorios.Proyectorep;
-import com.practica.todo.repositorios.Tareasrep;
 
 @Service
 public class ProyectoServ {

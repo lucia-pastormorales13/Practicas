@@ -10,7 +10,7 @@ import com.practica.todo.entidades.*;
 
 
 @Repository
-public interface Proyectorep extends JpaRepository  <Proyecto, Long> {
+public interface Proyectorep extends JpaRepository  <Proyecto, Integer> {
 
     List <Proyecto> findByMiembrosContaining(Usuario Usuario);
 

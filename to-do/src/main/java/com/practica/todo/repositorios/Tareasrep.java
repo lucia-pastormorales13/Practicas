@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.practica.todo.entidades.*;
 
 @Repository
-public interface Tareasrep extends JpaRepository  <Tarea, Long>{
+public interface Tareasrep extends JpaRepository  <Tarea, Integer>{
 
     
 }

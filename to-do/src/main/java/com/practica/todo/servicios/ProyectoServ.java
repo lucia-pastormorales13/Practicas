@@ -1,6 +1,6 @@
 package com.practica.todo.servicios;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +12,6 @@ import com.practica.todo.entidades.Tarea;
 import com.practica.todo.entidades.Usuario;
 import com.practica.todo.repositorios.Proyectorep;
 import com.practica.todo.repositorios.Tareasrep;
-import com.practica.todo.repositorios.Usuariosrep;
 
 @Service
 public class ProyectoServ {
@@ -44,9 +43,9 @@ public class ProyectoServ {
         
     }
 
-    //public List <Tarea> listarMisTareasenProyecto (Long id_proyecto, Long idUsuario){
-        
-    //}
-
-
+    public List <Tarea> listarMisTareasenProyecto (Long id_proyecto, Long idUsuario){
+        return tareaRepository.findByid_asignado(idUsuario).stream()
+            .filter(tarea -> tarea.getProyecto().getId_proyecto() == id_proyecto)
+            .collect(Collectors.toList());
+    }
 }

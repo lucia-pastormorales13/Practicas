@@ -19,5 +19,7 @@ public class Usuario {
     private String correo;
     
     private String contrasenia;
-    private String rol;
+
+    @Enumerated(EnumType.STRING)
+    private Role rol;
 }

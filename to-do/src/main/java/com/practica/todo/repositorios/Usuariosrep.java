@@ -12,9 +12,9 @@ import com.practica.todo.entidades.*;
 @Repository
 public interface Usuariosrep extends JpaRepository  <Usuario, Long>{
 
-    Optional<Usuario> findbyEmail(String email);
+    Optional<Usuario> findByEmail(String email);
 
-    List<Usuario> findByRole(String rol);
+    List<Usuario> findByRole(Role rol);
 
     boolean existsByEmail(String email);
 

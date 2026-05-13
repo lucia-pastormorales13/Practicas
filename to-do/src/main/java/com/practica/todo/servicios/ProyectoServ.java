@@ -20,9 +20,6 @@ public class ProyectoServ {
     @Autowired
     private Proyectorep proyectoRepository;
 
-    @Autowired
-    private Tareasrep tareaRepository;
-
     @PreAuthorize("hasRole('gestor_proyecto')")
     public Proyecto crearProyecto(Proyecto proyecto) {
         return proyectoRepository.save(proyecto);
@@ -33,21 +30,5 @@ public class ProyectoServ {
             return proyectoRepository.findAll();
         }
         return proyectoRepository.findByMiembrosContaining(usuario);
-    }
-
-    public Tarea CrearTareaenProyecto(int id_proyecto, Tarea nuevaTarea) throws Exception {
-
-        Proyecto proyecto = proyectoRepository.findById(id_proyecto)
-                .orElseThrow(() -> new Exception("Proyecto no encontrado"));
-        nuevaTarea.setProyecto(proyecto);
-
-        return tareaRepository.save(nuevaTarea);
-
-    }
-
-    public List<Tarea> listarMisTareasenProyecto(Long id_proyecto, Long idUsuario) {
-        return tareaRepository.findByid_asignado(idUsuario).stream()
-                .filter(tarea -> tarea.getProyecto().getId_proyecto() == id_proyecto)
-                .collect(Collectors.toList());
     }
 }

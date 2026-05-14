@@ -28,11 +28,11 @@ public class TareaServ {
         
     }
 
-    public List <Tarea> listarTareasDeUsuarioEnProyecto (Long id_proyecto, Long idUsuario){
-        return tareaRepository.findByid_asignado(idUsuario).stream()
-            .filter(tarea -> tarea.getProyecto().getId_proyecto() == id_proyecto)
-            .collect(Collectors.toList());
-    }
+    //public List <Tarea> listarTareasDeUsuarioEnProyecto (Long id_proyecto, Long idUsuario){
+    //    return tareaRepository.findByid_asignado(idUsuario).stream()
+    //        .filter(tarea -> tarea.getProyecto().getId_proyecto() == id_proyecto)
+    //        .collect(Collectors.toList());
+    //}
 
     public Tarea editarTarea(Tarea tarea){
         return tareaRepository.save(tarea);

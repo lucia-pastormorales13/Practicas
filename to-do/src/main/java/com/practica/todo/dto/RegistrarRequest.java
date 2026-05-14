@@ -11,5 +11,4 @@ public class RegistrarRequest {
     private String apellidos;
     private String correo;
     private String contrasenia;
-    private Role rol;
 }

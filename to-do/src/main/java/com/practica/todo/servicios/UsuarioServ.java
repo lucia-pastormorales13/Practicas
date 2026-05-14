@@ -22,7 +22,7 @@ public class UsuarioServ {
 
     @PreAuthorize("hasRole('administrador')")
     public Usuario crearUsuario(Usuario usuario){
-        if (UsuarioRep.findByEmail(usuario.getCorreo()).isPresent()) {
+        if (UsuarioRep.findByCorreo(usuario.getCorreo()).isPresent()) {
             return null;
         }
 
@@ -51,7 +51,7 @@ public class UsuarioServ {
     }
 
     public Usuario registrarUsuario(Usuario usuario){
-        if (UsuarioRep.findByEmail(usuario.getCorreo()).isPresent()) {
+        if (UsuarioRep.findByCorreo(usuario.getCorreo()).isPresent()) {
             return null;
         }
 

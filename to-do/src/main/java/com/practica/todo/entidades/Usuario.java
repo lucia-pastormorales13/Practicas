@@ -17,9 +17,16 @@ public class Usuario {
 
     @Column(unique = true)
     private String correo;
-    
+
     private String contrasenia;
 
     @Enumerated(EnumType.STRING)
     private Role rol;
+
+    public Usuario(String nombre, String apellidos, String correo, String contrasenia) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+    }
 }

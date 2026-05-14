@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.practica.todo.repositorios.Usuariosrep;
 import com.practica.todo.servicios.*;
 import com.practica.todo.entidades.*;
-import com.practica.todo.repositorios.*;
 
 import lombok.AllArgsConstructor;
 

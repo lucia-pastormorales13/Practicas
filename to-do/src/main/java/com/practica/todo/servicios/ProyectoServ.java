@@ -28,4 +28,4 @@ public class ProyectoServ {
         }
         return proyectoRepository.findByMiembrosContaining(usuario);
     }
-}
+}  

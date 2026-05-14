@@ -36,4 +36,4 @@ public class ProyectoServ {
                 .map(ProyectoUsuarios::getProyecto)
                 .toList();
     }
-}
+}  

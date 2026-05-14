@@ -14,5 +14,4 @@ public class AuthController {
     private final Usuariosrep usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
-    
 }

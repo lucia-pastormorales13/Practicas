@@ -20,7 +20,7 @@ import com.practica.todo.repositorios.*;
 import lombok.AllArgsConstructor;
 
 @RestController
-//@AllArgsConstructor
+@AllArgsConstructor
 @RequestMapping("/api/proyectos")
 @CrossOrigin(origins = "*")
 
@@ -41,17 +41,16 @@ public class ProyectoController {
 
     // crear proyecto
     @PostMapping("/crear/{id_gestor}")
-    public ResponseEntity<?> crear(@RequestBody Proyecto proyecto, @PathVariable Integer id_gestor){
-        try{
-            Usuario gestor= usuariosrepositorio.findById(id_gestor).orElseThrow(()-> new Exception("Usuario no encontrado"));
+    public ResponseEntity<?> crear(@RequestBody Proyecto proyecto, @PathVariable Integer id_gestor) {
+        try {
+            Usuario gestor = usuariosrepositorio.findById(id_gestor)
+                    .orElseThrow(() -> new Exception("Usuario no encontrado"));
 
-            Proyecto nuevo= proyectoServices.crearProyecto(proyecto, gestor);
-            return new ResponseEntity <> (nuevo, HttpStatus.CREATED);
-        }catch (Exception e){
+            Proyecto nuevo = proyectoServices.crearProyecto(proyecto, gestor);
+            return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
+        } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         }
-            
-        }
-    }
 
+    }
 }

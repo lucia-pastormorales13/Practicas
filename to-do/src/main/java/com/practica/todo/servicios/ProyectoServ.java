@@ -19,7 +19,7 @@ public class ProyectoServ {
     private Proyectorep proyectoRepository;
 
     @PreAuthorize("hasRole('gestor_proyecto')")
-    public Proyecto crearProyecto(Proyecto proyecto) {
+    public Proyecto crearProyecto(Proyecto proyecto, Usuario gestor) {
         return proyectoRepository.save(proyecto);
     }
 

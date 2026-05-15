@@ -18,6 +18,8 @@ import lombok.*;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin
+@RequestMapping("/api/auth")
 public class AuthController {
     private final Usuariosrep usuarioRepository;
     private final PasswordEncoder passwordEncoder;
@@ -28,7 +30,7 @@ public class AuthController {
 
     @PostMapping("/iniciar-sesion")
     public ResponseEntity<JwtResponse> iniciarSesion(@RequestBody IniciarRequest request) {
-        return usuarioRepository.findByEmail(request.getCorreo())
+        return usuarioRepository.findByCorreo(request.getCorreo())
                 .filter(usuario -> passwordEncoder.matches(request.getContrasenia(), usuario.getContrasenia()))
                 .map(usuario -> {
                     String token = jwtService.generateToken(usuario.getCorreo());
@@ -38,7 +40,7 @@ public class AuthController {
                     }
                     return ResponseEntity.ok(new JwtResponse(token, null, usuario.getRol(), usuario.getNombre(),
                             usuario.getId_usuario()));
-                }).orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                }).orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new JwtResponse(null, "Correo o contraseña incorrectos", null, null, 0)));
     }
 

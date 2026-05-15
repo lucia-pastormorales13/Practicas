@@ -10,9 +10,9 @@ import com.practica.todo.entidades.*;
 @Repository
 public interface Tareasrep extends JpaRepository  <Tarea, Integer>{
 
-    List<Tarea> findByid_proyecto(Long id_proyecto);
+    //List<Tarea> findByid_proyecto(Long id_proyecto);
 
-    List<Tarea> findByid_asignado(Long id_usuario);
+    //List<Tarea> findByid_asignado(Long id_usuario);
 
     long countByEstado(String estado);
 }

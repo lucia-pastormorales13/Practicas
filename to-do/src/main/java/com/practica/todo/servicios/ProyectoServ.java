@@ -7,8 +7,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.practica.todo.entidades.Proyecto;
+import com.practica.todo.entidades.ProyectoUsuarios;
 import com.practica.todo.entidades.Role;
 import com.practica.todo.entidades.Usuario;
+import com.practica.todo.repositorios.ProyectoUsuariosrep;
 import com.practica.todo.repositorios.Proyectorep;
 
 @Service
@@ -16,6 +18,9 @@ public class ProyectoServ {
 
     @Autowired
     private Proyectorep proyectoRepository;
+
+    @Autowired
+    private ProyectoUsuariosrep proyectoUsuariosRepository;
 
     @PreAuthorize("hasRole('gestor_proyecto')")
     public Proyecto crearProyecto(Proyecto proyecto, Usuario gestor) {
@@ -26,6 +31,9 @@ public class ProyectoServ {
         if (usuario.getRol() == Role.administrador) {
             return proyectoRepository.findAll();
         }
-        return proyectoRepository.findByMiembrosContaining(usuario);
+        return proyectoUsuariosRepository.findByUsuario_Id_usuario(usuario.getId_usuario())
+                .stream()
+                .map(ProyectoUsuarios::getProyecto)
+                .toList();
     }
 }  

@@ -22,4 +22,6 @@ public class Proyecto {
 
     @OneToMany(mappedBy = "proyecto")
     private List<Tarea> tareas;
+
+   
 }

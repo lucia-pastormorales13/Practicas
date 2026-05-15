@@ -36,4 +36,14 @@ public class ProyectoServ {
                 .map(ProyectoUsuarios::getProyecto)
                 .toList();
     }
+
+    public void eliminarProyecto(Integer id){
+        if (proyectoRepository.existsById(id)){
+
+            proyectoRepository.deleteById(id);
+
+        }else{
+            throw new RuntimeException("El proyecto con id: "+id+ " no existe.");
+        }
+    }
 }  

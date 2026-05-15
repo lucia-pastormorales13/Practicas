@@ -1,6 +1,6 @@
 package com.practica.todo.dto;
 
-import javax.management.relation.Role;
+//import javax.management.relation.Role;
 
 import lombok.*;
 

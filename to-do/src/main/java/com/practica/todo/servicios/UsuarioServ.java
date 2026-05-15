@@ -19,8 +19,6 @@ public class UsuarioServ {
     private final PasswordEncoder passwordEncoder;
 
     //------ADMINISTRADOR------
-
-    @PreAuthorize("hasRole('administrador')")
     public Usuario crearUsuario(Usuario usuario){
         if (UsuarioRep.findByCorreo(usuario.getCorreo()).isPresent()) {
             return null;
@@ -30,22 +28,22 @@ public class UsuarioServ {
         return UsuarioRep.save(usuario);
     }
 
-    @PreAuthorize("hasRole('administrador')")
+    @PreAuthorize("hasAuthority('administrador')")
     public Usuario editarUsuario(Usuario usuario){
         return UsuarioRep.save(usuario);
     }
 
-    @PreAuthorize("hasRole('administrador')")
+    @PreAuthorize("hasAuthority('administrador')")
     public Usuario getUsuarioConId(int id){
         return UsuarioRep.findById(id).orElse(null);
     }
 
-    @PreAuthorize("hasRole('administrador')")
+    @PreAuthorize("hasAuthority('administrador')")
     public List<Usuario> getAllUsuarios(){
         return UsuarioRep.findAll();
     }
 
-    @PreAuthorize("hasRole('administrador')")
+    @PreAuthorize("hasAuthority('administrador')")
     public void borrarUsuario(int id){
         UsuarioRep.deleteById(id);
     }

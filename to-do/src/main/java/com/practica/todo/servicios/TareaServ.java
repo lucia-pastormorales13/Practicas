@@ -52,4 +52,13 @@ public class TareaServ {
     public Tarea editarTarea(Tarea tarea){
         return tareaRepository.save(tarea);
     }
+
+    public void eliminarTarea(int id_tarea) throws Exception{
+        if (!tareaRepository.existsById(id_tarea)){
+            throw new Exception("La tarea no existe.");
+
+        }
+        tareaRepository.deleteById(id_tarea);
+
+    }
 }

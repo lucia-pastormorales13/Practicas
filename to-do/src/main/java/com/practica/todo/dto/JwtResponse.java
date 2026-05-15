@@ -1,6 +1,6 @@
 package com.practica.todo.dto;
 
-import com.practica.todo.entidades.Role;
+import com.practica.todo.enumeration.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

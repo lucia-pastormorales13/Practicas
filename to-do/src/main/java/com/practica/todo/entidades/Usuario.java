@@ -1,5 +1,7 @@
 package com.practica.todo.entidades;
 
+import com.practica.todo.enumeration.Role;
+
 import jakarta.persistence.*;
 import lombok.*;
 

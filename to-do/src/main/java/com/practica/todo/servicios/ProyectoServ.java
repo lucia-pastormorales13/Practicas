@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.practica.todo.entidades.Proyecto;
 import com.practica.todo.entidades.ProyectoUsuarios;
-import com.practica.todo.entidades.Role;
+import com.practica.todo.enumeration.*;
 import com.practica.todo.entidades.Usuario;
 import com.practica.todo.repositorios.ProyectoUsuariosrep;
 import com.practica.todo.repositorios.Proyectorep;

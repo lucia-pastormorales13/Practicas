@@ -31,4 +31,12 @@ public class Usuario {
         this.correo = correo;
         this.contrasenia = contrasenia;
     }
+
+    public Usuario(String nombre, String apellidos, String correo, String contrasenia, Role rol) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+        this.rol = rol;
+    }
 }

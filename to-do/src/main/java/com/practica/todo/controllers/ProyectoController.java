@@ -28,7 +28,7 @@ public class ProyectoController {
     private final Usuariosrep usuariosrepositorio;
 
     // obtener los proyectos de un user (solo a los que pertenecen)
-    @GetMapping("/Usuario/{id_usuario}")
+    @GetMapping("/usuario/{id_usuario}")
     public ResponseEntity<List<Proyecto>> getProyectoByUsuario(@PathVariable Integer id_usuario) {
 
         return usuariosrepositorio.findById(id_usuario).map(usuario -> {

@@ -20,8 +20,8 @@ public class Proyecto {
     private LocalDateTime fecha_inicio;
     private LocalDateTime fecha_limite;
 
-    @OneToMany(mappedBy = "proyecto")
+    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
+
     private List<Tarea> tareas;
 
-   
 }

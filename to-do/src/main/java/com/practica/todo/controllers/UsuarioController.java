@@ -30,6 +30,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/listar-usuarios")
+    @PreAuthorize("hasAuthority('administrador')")
     public ResponseEntity<?> listarUsuario() {
         if (usuarioServ.getAllUsuarios() == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -39,6 +40,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/get-usuario/{id-usuario}")
+    @PreAuthorize("hasAuthority('administrador')")
     public ResponseEntity<JwtResponse> getUsuario(@PathVariable("id-usuario") int id_usuario) {
         Usuario u = usuarioServ.getUsuarioConId(id_usuario);
         if (u == null) {
@@ -49,6 +51,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/editar-usuario/{id-usuario}")
+    @PreAuthorize("hasAuthority('administrador')")
     public ResponseEntity<JwtResponse> editarUsuario(@RequestBody Usuario usuario,
             @PathVariable("id-usuario") int id_usuario) {
         Usuario u = usuarioServ.getUsuarioConId(id_usuario);
@@ -62,6 +65,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/borrar-usuario/{id-usuario}")
+    @PreAuthorize("hasAuthority('administrador')")
     public ResponseEntity<JwtResponse> borrarUsuario(@PathVariable("id-usuario") int id_usuario) {
         if (usuarioServ.getUsuarioConId(id_usuario) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

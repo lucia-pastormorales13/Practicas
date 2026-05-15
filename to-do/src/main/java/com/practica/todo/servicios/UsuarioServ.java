@@ -28,22 +28,18 @@ public class UsuarioServ {
         return UsuarioRep.save(usuario);
     }
 
-    @PreAuthorize("hasAuthority('administrador')")
     public Usuario editarUsuario(Usuario usuario){
         return UsuarioRep.save(usuario);
     }
 
-    @PreAuthorize("hasAuthority('administrador')")
     public Usuario getUsuarioConId(int id){
         return UsuarioRep.findById(id).orElse(null);
     }
 
-    @PreAuthorize("hasAuthority('administrador')")
     public List<Usuario> getAllUsuarios(){
         return UsuarioRep.findAll();
     }
 
-    @PreAuthorize("hasAuthority('administrador')")
     public void borrarUsuario(int id){
         UsuarioRep.deleteById(id);
     }

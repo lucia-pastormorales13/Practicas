@@ -1,6 +1,7 @@
 package com.practica.todo.entidades;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,6 +9,7 @@ import lombok.*;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Tarea {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +18,7 @@ public class Tarea {
     private String titulo;
     private String descripcion;
     private String estado;
-    private LocalDateTime fecha_entrega;
+    private LocalDate fecha_entrega;
     private String prioridad;
 
     @ManyToOne

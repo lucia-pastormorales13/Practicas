@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.practica.todo.entidades.*;
@@ -22,7 +23,7 @@ class TareaController {
     @Autowired
     private TareaServ tareaServ;
 
-    @PostMapping("/crear/{id_proyecto}")
+    @PostMapping("/crear")
     public ResponseEntity<?> editarTarea(@RequestBody Tarea tarea){
         try{
             Tarea TareaActualizada= tareaServ.editarTarea(tarea);
@@ -45,7 +46,7 @@ class TareaController {
         }
     }
 
-    @PostMapping("/editar")
+    @PostMapping("/editar/{id}")
     public ResponseEntity<?> editartarea(@RequestBody Tarea tarea){
         try{
             if(tarea.getId_tarea()== 0){
@@ -56,6 +57,21 @@ class TareaController {
             return ResponseEntity.ok(TareaActualizada);
         }catch (Exception e){
             return ResponseEntity.status((HttpStatus.INTERNAL_SERVER_ERROR)).body("Error al actualizar la tarea: "+ e.getMessage());
+        }
+    }
+
+    @PostMapping ("/actualizar-estado/{id}")
+    public ResponseEntity<?> actestado(@PathVariable int id, @RequestBody Tarea nuevoEstado){
+        try{
+            Tarea tarea= tareaServ.buscarporId(id);
+            tarea.setEstado(nuevoEstado.getEstado());
+            tareaServ.editarTarea(tarea);
+
+            return ResponseEntity.ok("Estado actualizado correctamente a: "+nuevoEstado);
+
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La tarea no ha sido encontrada");
+
         }
     }
 

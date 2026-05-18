@@ -61,4 +61,8 @@ public class TareaServ {
         tareaRepository.deleteById(id_tarea);
 
     }
+
+    public Tarea buscarporId(int id_tarea) throws Exception{
+        return tareaRepository.findById(id_tarea).orElseThrow(()-> new Exception("Tarea no encobtrada"));
+    }
 }

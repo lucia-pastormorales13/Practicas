@@ -8,6 +8,7 @@ import lombok.*;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Tarea {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

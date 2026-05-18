@@ -3,7 +3,6 @@ package com.practica.todo.servicios;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.practica.todo.entidades.Proyecto;
@@ -22,9 +21,15 @@ public class ProyectoServ {
     @Autowired
     private ProyectoUsuariosrep proyectoUsuariosRepository;
 
-    @PreAuthorize("hasRole('gestor_proyecto')")
     public Proyecto crearProyecto(Proyecto proyecto, Usuario gestor) {
-        return proyectoRepository.save(proyecto);
+        Proyecto savedProyecto = proyectoRepository.save(proyecto);
+
+        ProyectoUsuarios proyectoUsuario = new ProyectoUsuarios();
+        proyectoUsuario.setUsuario(gestor);
+        proyectoUsuario.setProyecto(savedProyecto);
+        proyectoUsuariosRepository.save(proyectoUsuario);
+
+        return savedProyecto;
     }
 
     public List<Proyecto> ListarMisProyectos(Usuario usuario) {
@@ -45,5 +50,28 @@ public class ProyectoServ {
         }else{
             throw new RuntimeException("El proyecto con id: "+id+ " no existe.");
         }
+    }
+
+    public Proyecto getProyectoById(Integer id){
+        return proyectoRepository.findById(id).orElse(null);
+    }
+
+    public Proyecto editarProyecto(Proyecto proyectoActual,Proyecto proyectoActualizado){
+        if (proyectoActualizado.getNombre() != null && !proyectoActualizado.getNombre().isBlank()) {
+            proyectoActual.setNombre(proyectoActualizado.getNombre());
+        }
+        if (proyectoActualizado.getDescripcion() != null && !proyectoActualizado.getDescripcion().isBlank()) {
+            proyectoActual.setDescripcion(proyectoActualizado.getDescripcion());
+        }
+        if (proyectoActualizado.getEstado() != null && !proyectoActualizado.getEstado().isBlank()) {
+            proyectoActual.setEstado(proyectoActualizado.getEstado());
+        }
+        if (proyectoActualizado.getFecha_inicio() != null) {
+            proyectoActual.setFecha_inicio(proyectoActualizado.getFecha_inicio());
+        }
+        if (proyectoActualizado.getFecha_limite() != null) {
+            proyectoActual.setFecha_limite(proyectoActualizado.getFecha_limite());
+        }
+        return proyectoRepository.save(proyectoActual);
     }
 }  

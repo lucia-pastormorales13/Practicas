@@ -3,6 +3,7 @@ package com.practica.todo.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,23 +32,24 @@ public class UsuarioController {
 
     @GetMapping("/listar-usuarios")
     @PreAuthorize("hasAuthority('administrador')")
-    public ResponseEntity<?> listarUsuario() {
-        if (usuarioServ.getAllUsuarios() == null) {
+    public ResponseEntity<?> listarUsuarios() {
+        List<Usuario> usuarios = usuarioServ.getAllUsuarios();
+        if (usuarios == null || usuarios.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new JwtResponse(null, "No se encontraron usuarios", null, null, 0));
         }
-        return ResponseEntity.ok(usuarioServ.getAllUsuarios());
+        return ResponseEntity.ok(usuarios);
     }
 
     @GetMapping("/get-usuario/{id-usuario}")
     @PreAuthorize("hasAuthority('administrador')")
-    public ResponseEntity<JwtResponse> getUsuario(@PathVariable("id-usuario") int id_usuario) {
+    public ResponseEntity<?> getUsuario(@PathVariable("id-usuario") int id_usuario) {
         Usuario u = usuarioServ.getUsuarioConId(id_usuario);
         if (u == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new JwtResponse(null, "Usuario no encontrado", null, null, 0));
         }
-        return ResponseEntity.ok(new JwtResponse(null, "Usuario encontrado", null, null, 0));
+        return ResponseEntity.ok(u);
     }
 
     @PutMapping("/editar-usuario/{id-usuario}")
@@ -59,8 +61,7 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new JwtResponse(null, "Usuario no encontrado", null, null, 0));
         }
-        usuario.setId_usuario(id_usuario);
-        usuarioServ.editarUsuario(usuario);
+        usuarioServ.editarUsuario(u, usuario);
         return ResponseEntity.ok(new JwtResponse(null, "Usuario editado exitosamente", null, null, 0));
     }
 

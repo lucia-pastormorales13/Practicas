@@ -28,8 +28,23 @@ public class UsuarioServ {
         return UsuarioRep.save(usuario);
     }
 
-    public Usuario editarUsuario(Usuario usuario){
-        return UsuarioRep.save(usuario);
+    public Usuario editarUsuario(Usuario existente, Usuario actualizaciones){
+        if (actualizaciones.getNombre() != null && !actualizaciones.getNombre().isBlank()) {
+            existente.setNombre(actualizaciones.getNombre());
+        }
+        if (actualizaciones.getApellidos() != null && !actualizaciones.getApellidos().isBlank()) {
+            existente.setApellidos(actualizaciones.getApellidos());
+        }
+        if (actualizaciones.getCorreo() != null && !actualizaciones.getCorreo().isBlank()) {
+            existente.setCorreo(actualizaciones.getCorreo());
+        }
+        if (actualizaciones.getContrasenia() != null && !actualizaciones.getContrasenia().isBlank()) {
+            existente.setContrasenia(passwordEncoder.encode(actualizaciones.getContrasenia()));
+        }
+        if (actualizaciones.getRol() != null) {
+            existente.setRol(actualizaciones.getRol());
+        }
+        return UsuarioRep.save(existente);
     }
 
     public Usuario getUsuarioConId(int id){

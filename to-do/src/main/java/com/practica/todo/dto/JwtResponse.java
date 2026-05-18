@@ -11,7 +11,7 @@ import lombok.Data;
 public class JwtResponse {
     private String token;
     private String error;
-    private Role role;
+    private Role rol;
     private String name;
     private int id_usuario;
 }

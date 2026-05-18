@@ -22,7 +22,7 @@ class TareaController {
     @Autowired
     private TareaServ tareaServ;
 
-    @PostMapping("/crear/{id_proyecto}")
+    @PostMapping("/crear")
     public ResponseEntity<?> editarTarea(@RequestBody Tarea tarea){
         try{
             Tarea TareaActualizada= tareaServ.editarTarea(tarea);

@@ -13,7 +13,7 @@ import com.practica.todo.entidades.Usuario;
 import com.practica.todo.servicios.UsuarioServ;
 
 @RestController
-@RequestMapping("/apo/admin")
+@RequestMapping("/api/admin")
 public class UsuarioController {
     @Autowired
     private UsuarioServ usuarioServ;

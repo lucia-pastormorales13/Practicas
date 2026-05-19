@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .cors(cors -> {})
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/admin/**").permitAll() //hasAuthority("administrador")
+                        .requestMatchers("/api/admin/**").hasAuthority("administrador")
                         .requestMatchers("/api/gestor/**").hasAuthority("gestor_proyectos")
                         .anyRequest().authenticated()
                 )

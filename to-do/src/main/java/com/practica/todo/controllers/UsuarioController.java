@@ -26,7 +26,7 @@ public class UsuarioController {
     private UsuarioServ usuarioServ;
 
     @PostMapping("/crear-usuario")
-    //@PreAuthorize("hasAuthority('administrador')")
+    @PreAuthorize("hasAuthority('administrador')")
     public ResponseEntity<JwtResponse> crearUsuario(@RequestBody Usuario usuario) {
         Usuario u = new Usuario(usuario.getNombre(), usuario.getApellidos(), usuario.getCorreo(),
                 usuario.getContrasenia(), usuario.getRol());
@@ -61,7 +61,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/editar-usuario/{id-usuario}")
-    //@PreAuthorize("hasAuthority('administrador')")
+    @PreAuthorize("hasAuthority('administrador')")
     public ResponseEntity<JwtResponse> editarUsuario(@RequestBody Usuario usuario,
             @PathVariable("id-usuario") int id_usuario) {
         Usuario u = usuarioServ.getUsuarioConId(id_usuario);

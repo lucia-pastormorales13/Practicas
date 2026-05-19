@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { Mail, Lock, User, LogIn, UserPlus } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -10,7 +10,7 @@ export function AuthPage() {
   const [error, setError] = useState('');
   const { login, register } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setError('');
 

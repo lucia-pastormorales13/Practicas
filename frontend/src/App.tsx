@@ -5,6 +5,8 @@ import Login from './componentes/auth/Login'
 import Registrar from './componentes/auth/Registrar'
 import Logout from './componentes/auth/Logout'
 import DashboardAdmin from './componentes/administrador/DashboardAdmin'
+import Gestor from './componentes/gestor/Gestor'  
+import Tarea from './componentes/tarea/Tarea'
 function App() {
   const { isLoggedIn } = useAuth();
 
@@ -16,6 +18,8 @@ function App() {
         <Route path='/logout' element={<Logout />} />
         {/* <Route path='/administrador-dashboard' element={isLoggedIn ? <DashboardAdmin /> : <Navigate replace to="/" />} /> */}
         <Route path='/administrador-dashboard' element={<DashboardAdmin />} />
+        <Route path='/gestor-dashboard' element={<Gestor />} />
+        <Route path='/gestor-proyectos-dashboard' element={<Tarea/> } />
       </Routes>
     </BrowserRouter>
   )

@@ -3,7 +3,7 @@ import './App.css'
 import { useAuth } from './contexto/AuthContexto'
 import Login from './componentes/auth/Login'
 import Registrar from './componentes/auth/Registrar'
-import Logout from './componentes/auth/Registrar'
+import Logout from './componentes/auth/Logout'
 import DashboardAdmin from './componentes/administrador/DashboardAdmin'
 function App() {
   const { isLoggedIn } = useAuth();

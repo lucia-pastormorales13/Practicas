@@ -1,11 +1,19 @@
 package com.practica.todo.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.practica.todo.dto.JwtResponse;
 import com.practica.todo.entidades.Usuario;
@@ -18,7 +26,7 @@ public class UsuarioController {
     private UsuarioServ usuarioServ;
 
     @PostMapping("/crear-usuario")
-    @PreAuthorize("hasAuthority('administrador')")
+    //@PreAuthorize("hasAuthority('administrador')")
     public ResponseEntity<JwtResponse> crearUsuario(@RequestBody Usuario usuario) {
         Usuario u = new Usuario(usuario.getNombre(), usuario.getApellidos(), usuario.getCorreo(),
                 usuario.getContrasenia(), usuario.getRol());
@@ -53,7 +61,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/editar-usuario/{id-usuario}")
-    @PreAuthorize("hasAuthority('administrador')")
+    //@PreAuthorize("hasAuthority('administrador')")
     public ResponseEntity<JwtResponse> editarUsuario(@RequestBody Usuario usuario,
             @PathVariable("id-usuario") int id_usuario) {
         Usuario u = usuarioServ.getUsuarioConId(id_usuario);

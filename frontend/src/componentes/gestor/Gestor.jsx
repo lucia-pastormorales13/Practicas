@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { 
-  FolderKanban, Plus, LogOut, Calendar, Edit2, Trash2, ChevronRight, 
-  ListTodo, Clock 
-} from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext'; // Ajusta la ruta a tu AuthContext real
 
+import Logout from '../auth/Logout';
 import { 
   obtenerProyectosPorUsuario, 
   crearProyectoReal, 
   editarProyectoReal, 
   eliminarProyectoReal
-} from '../../services/proyectoService';
+} from './GestorS';
+import { useAuth } from '../../contexto/AuthContexto';
 
-export function ManagerDashboard() {
+export default function ManagerDashboard() {
   const { currentUser, logout } = useAuth(); // Extraemos los datos del usuario autenticado
   const idGestorLogueado = currentUser?.id_usuario;
 
@@ -72,7 +69,7 @@ export function ManagerDashboard() {
         alert("No se pudo eliminar el proyecto");
       }
     }
-  };
+  };º
 
   // Selectores visuales de estados (Filtro limpio)
   const getStatusColor = (status) => {
@@ -104,10 +101,7 @@ export function ManagerDashboard() {
             <h1 className="text-xl font-bold text-gray-800">Panel de Gestión de Proyectos</h1>
             <p className="text-xs text-gray-500">Bienvenido/a, {currentUser?.nombre || 'Gestor'}</p>
           </div>
-          <button onClick={logout} className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors text-sm">
-            <LogOut className="w-4 h-4" />
-            <span>Cerrar sesión</span>
-          </button>
+          <Logout onClick={logout} className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors text-sm"/>
         </div>
       </nav>
 
@@ -124,7 +118,7 @@ export function ManagerDashboard() {
                   onClick={() => { setEditingProject(null); setShowProjectModal(true); }}
                   className="p-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
                 >
-                  <Plus className="w-4 h-4" />
+                  add
                 </button>
               </div>
 
@@ -132,7 +126,6 @@ export function ManagerDashboard() {
                 <div className="text-center py-6 text-gray-400 text-sm">Cargando base de datos MySQL...</div>
               ) : proyectos.length === 0 ? (
                 <div className="text-center py-8 text-gray-400">
-                  <FolderKanban className="w-12 h-12 mx-auto mb-2 opacity-40" />
                   <p className="text-sm">No tienes proyectos asignados.</p>
                 </div>
               ) : (
@@ -152,7 +145,6 @@ export function ManagerDashboard() {
                           <h3 className="font-bold text-gray-800 text-sm truncate">{project.nombre}</h3>
                           <p className="text-xs text-gray-500 line-clamp-1 mt-1">{project.descripcion}</p>
                         </div>
-                        <ChevronRight className={`w-4 h-4 text-gray-400 mt-0.5 transition-transform ${selectedProject === project.id_proyecto ? 'rotate-90 text-blue-500' : ''}`} />
                       </div>
                       <div className="mt-3">
                         <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${getStatusColor(project.estado)}`}>
@@ -180,27 +172,27 @@ export function ManagerDashboard() {
                       onClick={() => { setEditingProject(proyectoSeleccionadoActual); setShowProjectModal(true); }}
                       className="p-2 bg-gray-50 hover:bg-blue-50 text-blue-600 rounded-lg transition-colors border"
                     >
-                      <Edit2 className="w-4 h-4" />
+                      edit
                     </button>
                     <button
                       onClick={() => handleDeleteProject(proyectoSeleccionadoActual.id_proyecto)}
                       className="p-2 bg-gray-50 hover:bg-red-50 text-red-600 rounded-lg transition-colors border"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      delete
                     </button>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 text-xs text-gray-600 mb-6 bg-gray-50 p-4 rounded-xl">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-gray-400" />
+                    calendario
                     <div>
                       <p className="font-semibold text-gray-400">FECHA INICIO</p>
                       <p className="text-gray-700 font-medium">{proyectoSeleccionadoActual.fecha_inicio}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-gray-400" />
+                    time
                     <div>
                       <p className="font-semibold text-gray-400">FECHA LÍMITE</p>
                       <p className="text-gray-700 font-medium">{proyectoSeleccionadoActual.fecha_limite}</p>
@@ -213,7 +205,7 @@ export function ManagerDashboard() {
                   <div className="flex justify-between items-center bg-blue-50 p-4 rounded-xl border border-blue-100">
                     <div>
                       <h4 className="text-sm font-bold text-blue-900 flex items-center gap-1">
-                        <ListTodo className="w-4 h-4" /> Tareas Asociadas
+                        Tareas Asociadas
                       </h4>
                       <p className="text-xs text-blue-700 mt-0.5">Asigna y gestiona las actividades operativas de este proyecto desde la sección de tareas.</p>
                     </div>
@@ -223,7 +215,7 @@ export function ManagerDashboard() {
               </div>
             ) : (
               <div className="bg-white rounded-2xl shadow-sm p-12 border border-gray-200 text-center text-gray-400">
-                <FolderKanban className="w-16 h-16 mx-auto mb-4 opacity-30" />
+                carpeta
                 <h3 className="text-base font-semibold text-gray-700 mb-1">Ningún proyecto seleccionado</h3>
                 <p className="text-xs">Elige un elemento del panel de la izquierda para ver su información extendida.</p>
               </div>
@@ -233,13 +225,13 @@ export function ManagerDashboard() {
       </div>
 
       {/* DIÁLOGO MODAL */}
-      {showProjectModal && (
+      {/*{showProjectModal && (
         <ProjectModalForm
           project={editingProject}
           onClose={() => { setShowProjectModal(false); setEditingProject(null); }}
           onSave={handleSaveProject}
         />
-      )}
+      )}*/}
     </div>
   );
 }

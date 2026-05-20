@@ -1,6 +1,6 @@
 import { useState } from "react";
 import api from "../../lib/api";
-import Layout from "./Layout";
+import Layout from "../layout/Layout";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -48,7 +48,7 @@ export default function CrearUsuario() {
     };
 
     return (
-        <Layout>
+        <Layout title="Crear Usuario">
             <div className="bg-white rounded-2xl max-w-md w-full mx-auto p-6 shadow-xl">
 
                 <div className="flex items-center justify-between mb-6">

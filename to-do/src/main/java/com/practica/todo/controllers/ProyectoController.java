@@ -37,5 +37,4 @@ public class ProyectoController {
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
-
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Layout from "./Layout";
+import Layout from "../layout/Layout";
 import api from "../../lib/api";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -72,7 +72,7 @@ export default function EditarUsuario() {
     };
 
     return (
-        <Layout>
+        <Layout title="Editar Usuario">
             <div className="bg-white rounded-2xl max-w-md w-full mx-auto p-6 shadow-xl">
 
                 <div className="flex items-center justify-between mb-6">

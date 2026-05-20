@@ -3,9 +3,8 @@ import { useAuth } from "../../contexto/AuthContexto";
 import Logout from "../auth/Logout";
 import api from "../../lib/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFolderOpen, faListCheck, faPenToSquare, faTrashCan, faUser } from "@fortawesome/free-solid-svg-icons";
-import { icon } from "@fortawesome/fontawesome-svg-core";
-import Layout from "./Layout";
+import { faFolderOpen, faListCheck, faPenToSquare, faTrashCan, faUser, faShieldAlt, faClipboardList } from "@fortawesome/free-solid-svg-icons";
+import Layout from "../layout/Layout";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -86,16 +85,23 @@ function DashboardAdmin() {
     );
 
     const getRolIcon = (rol) => {
+        const iconMap = {
+            administrador: faShieldAlt,
+            gestor_proyectos: faClipboardList,
+            colaborador: faUser,
+        };
+
         const colorClass =
             rol === "administrador"
-                ? "bg-red-500"
+                ? "text-red-500"
                 : rol === "gestor_proyectos"
-                    ? "bg-yellow-500"
+                    ? "text-yellow-500"
                     : rol === "colaborador"
-                        ? "bg-green-500"
-                        : "bg-slate-400";
+                        ? "text-green-500"
+                        : "text-slate-400";
 
-        return (props) => <span {...props} className={`${props.className ?? ""} inline-flex h-3.5 w-3.5 rounded-full ${colorClass}`} />;
+        const icon = iconMap[rol] || faUser;
+        return (props) => <FontAwesomeIcon icon={icon} {...props} className={`${props.className ?? ""} ${colorClass}`} />;
     };
 
     const getRolLabel = (rol) => {
@@ -120,7 +126,7 @@ function DashboardAdmin() {
     ];
 
     return (
-        <Layout>
+        <Layout title="Panel de Administración">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 {stats.map((stat) => (
                     <div key={stat.label} className="bg-white rounded-2xl p-6 shadow-sm">
@@ -184,6 +190,9 @@ function DashboardAdmin() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs ${getRolBadgeColor(user.rol)}`}>
+                                                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10">
+                                                    <RolIcon className="h-3 w-3" />
+                                                </span>
                                                 {getRolLabel(user.rol)}
                                             </span>
                                         </td>

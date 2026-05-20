@@ -5,10 +5,9 @@ import Login from './componentes/auth/Login';
 import Registrar from './componentes/auth/Registrar';
 import Logout from './componentes/auth/Logout';
 import DashboardAdmin from './componentes/administrador/DashboardAdmin';
-import Gestor from './componentes/gestor/Gestor';
-import Tarea from './componentes/tarea/Tarea';
 import CrearUsuario from './componentes/administrador/CrearUsuario';
 import EditarUsuario from './componentes/administrador/EditarUsuario'
+import DashboardGestor from './componentes/gestor/DashboardGestor';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -21,8 +20,8 @@ function App() {
         <Route path='/logout' element={<Logout />} />
         {/* <Route path='/administrador-dashboard' element={isLoggedIn ? <DashboardAdmin /> : <Navigate replace to="/" />} /> */}
         <Route path='/administrador-dashboard' element={<DashboardAdmin />} />
-        <Route path='/gestor-dashboard' element={<Gestor />} />
-        <Route path='/gestor-proyectos-dashboard' element={<Tarea/> } />
+        <Route path='/gestor-proyectos-dashboard' element={<DashboardGestor />} />
+        {/* <Route path='/gestor-proyectos-dashboard' element={<Tarea/> } /> */}
         <Route path='/crear-usuario' element={<CrearUsuario />} />
         <Route path='/editar-usuario/:id_usuario' element={<EditarUsuario />} />
       </Routes>

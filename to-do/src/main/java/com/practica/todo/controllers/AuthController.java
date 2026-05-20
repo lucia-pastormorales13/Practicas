@@ -48,7 +48,8 @@ public class AuthController {
     public ResponseEntity<JwtResponse> registrar(@RequestBody RegistrarRequest request) {
         Usuario u = new Usuario(request.getNombre(), request.getApellidos(), request.getCorreo(), request.getContrasenia());
         if (usuarioServ.registrarUsuario(u) == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse(null, "Correo ya existente", null, null, 0));
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(new JwtResponse(null, "Correo ya existente", null, null, 0));
         }
         return ResponseEntity.ok(new JwtResponse(null, null, null, null, 0));
     }

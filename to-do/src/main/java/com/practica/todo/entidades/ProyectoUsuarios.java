@@ -9,7 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 public class ProyectoUsuarios {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")

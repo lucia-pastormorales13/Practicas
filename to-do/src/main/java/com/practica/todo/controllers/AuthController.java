@@ -18,8 +18,8 @@ import lombok.*;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin
 @RequestMapping("/api/auth")
+@CrossOrigin
 public class AuthController {
     private final Usuariosrep usuarioRepository;
     private final PasswordEncoder passwordEncoder;
@@ -33,11 +33,11 @@ public class AuthController {
         return usuarioRepository.findByCorreo(request.getCorreo())
                 .filter(usuario -> passwordEncoder.matches(request.getContrasenia(), usuario.getContrasenia()))
                 .map(usuario -> {
-                    String token = jwtService.generateToken(usuario.getCorreo());
                     if (usuario.getRol() == null) {
                         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                .body(new JwtResponse(token, "Rol no asignado", null, null, 0));
+                                .body(new JwtResponse(null, "Rol no asignado", null, null, 0));
                     }
+                    String token = jwtService.generateToken(usuario.getCorreo(), usuario.getRol().toString());
                     return ResponseEntity.ok(new JwtResponse(token, null, usuario.getRol(), usuario.getNombre(),
                             usuario.getId_usuario()));
                 }).orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -48,10 +48,13 @@ public class AuthController {
     public ResponseEntity<JwtResponse> registrar(@RequestBody RegistrarRequest request) {
         Usuario u = new Usuario(request.getNombre(), request.getApellidos(), request.getCorreo(), request.getContrasenia());
         if (usuarioServ.registrarUsuario(u) == null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new JwtResponse(null, "Correo ya existente", null, null, 0));
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new JwtResponse(null, "Correo ya existente", null, null, 0));
         }
         return ResponseEntity.ok(new JwtResponse(null, null, null, null, 0));
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<JwtResponse> logout(){
+        return ResponseEntity.ok(new JwtResponse(null, "ha salido del programa", null, null, 0));
+    }
 }

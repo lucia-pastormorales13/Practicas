@@ -1,6 +1,6 @@
 package com.practica.todo.entidades;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -9,6 +9,7 @@ import lombok.*;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Proyecto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +18,11 @@ public class Proyecto {
     private String nombre;
     private String descripcion;
     private String estado;
-    private LocalDateTime fecha_inicio;
-    private LocalDateTime fecha_limite;
+    private LocalDate fecha_inicio;
+    private LocalDate fecha_limite;
 
-    @OneToMany(mappedBy = "proyecto")
+    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
+
     private List<Tarea> tareas;
+
 }

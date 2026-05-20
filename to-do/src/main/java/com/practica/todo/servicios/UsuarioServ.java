@@ -2,12 +2,11 @@ package com.practica.todo.servicios;
 
 import java.util.List;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.practica.todo.entidades.Role;
 import com.practica.todo.entidades.Usuario;
+import com.practica.todo.enumeration.Role;
 import com.practica.todo.repositorios.Usuariosrep;
 
 import lombok.RequiredArgsConstructor;
@@ -19,8 +18,6 @@ public class UsuarioServ {
     private final PasswordEncoder passwordEncoder;
 
     //------ADMINISTRADOR------
-
-    @PreAuthorize("hasRole('administrador')")
     public Usuario crearUsuario(Usuario usuario){
         if (UsuarioRep.findByCorreo(usuario.getCorreo()).isPresent()) {
             return null;
@@ -30,22 +27,33 @@ public class UsuarioServ {
         return UsuarioRep.save(usuario);
     }
 
-    @PreAuthorize("hasRole('administrador')")
-    public Usuario editarUsuario(Usuario usuario){
-        return UsuarioRep.save(usuario);
+    public Usuario editarUsuario(Usuario existente, Usuario actualizaciones){
+        if (actualizaciones.getNombre() != null && !actualizaciones.getNombre().isBlank()) {
+            existente.setNombre(actualizaciones.getNombre());
+        }
+        if (actualizaciones.getApellidos() != null && !actualizaciones.getApellidos().isBlank()) {
+            existente.setApellidos(actualizaciones.getApellidos());
+        }
+        if (actualizaciones.getCorreo() != null && !actualizaciones.getCorreo().isBlank()) {
+            existente.setCorreo(actualizaciones.getCorreo());
+        }
+        if (actualizaciones.getContrasenia() != null && !actualizaciones.getContrasenia().isBlank()) {
+            existente.setContrasenia(passwordEncoder.encode(actualizaciones.getContrasenia()));
+        }
+        if (actualizaciones.getRol() != null) {
+            existente.setRol(actualizaciones.getRol());
+        }
+        return UsuarioRep.save(existente);
     }
 
-    @PreAuthorize("hasRole('administrador')")
     public Usuario getUsuarioConId(int id){
         return UsuarioRep.findById(id).orElse(null);
     }
 
-    @PreAuthorize("hasRole('administrador')")
     public List<Usuario> getAllUsuarios(){
         return UsuarioRep.findAll();
     }
 
-    @PreAuthorize("hasRole('administrador')")
     public void borrarUsuario(int id){
         UsuarioRep.deleteById(id);
     }

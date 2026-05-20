@@ -50,7 +50,7 @@ export default function DashboardGestor() {
                         </div>
 
                         <div className="space-y-3">
-                            {projects.map((p) =>)}
+                            
                         </div>
                     </div>
                 </div>

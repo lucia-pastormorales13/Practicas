@@ -1,27 +1,23 @@
-import { useContext, useState, useEffect, createContext } from "react";
+import { useContext, useState, createContext } from "react";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [auth, setAuth] = useState({
-    isLoggedIn: false,
-    nombre: null,
-    rol: null,
-    token: null,
-    id_usuario: null,
-  });
-
-  useEffect(() => {
+  const [auth, setAuth] = useState(() => {
     const isLoggedIn = localStorage.getItem("loggedIn") === "true";
     const nombre = localStorage.getItem("nombre");
     const rol = localStorage.getItem("rol");
     const token = localStorage.getItem("token");
     const id_usuario = localStorage.getItem("id_usuario");
 
-    if (isLoggedIn) {
-      setAuth({ isLoggedIn, nombre, rol, token, id_usuario });
-    }
-  }, []);
+    return {
+      isLoggedIn,
+      nombre,
+      rol,
+      token,
+      id_usuario,
+    };
+  });
 
   const login = ({ nombre, rol, token, id_usuario }) => {
     localStorage.setItem("loggedIn", "true");

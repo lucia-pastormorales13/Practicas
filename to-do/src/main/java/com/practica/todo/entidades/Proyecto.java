@@ -22,7 +22,5 @@ public class Proyecto {
     private LocalDate fecha_limite;
 
     @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
-
     private List<Tarea> tareas;
-
 }

@@ -12,7 +12,6 @@ function DashboardAdmin() {
     const { nombre, id_usuario } = useAuth();
     const [users, setUsers] = useState([]);
     const [projects, setProjects] = useState([]);
-    const [editingUser, setEditingUser] = useState(null);
 
     const currentUserId = id_usuario ? Number(id_usuario) : null;
 
@@ -78,7 +77,7 @@ function DashboardAdmin() {
         }
     };
 
-    const activeProjects = projects.filter((p) => p.estado === "pendiente").length;
+    const activeProjects = projects.filter((p) => p.estado === "en_progreso").length;
     const completedTasks = projects.reduce(
         (sum, project) => sum + (project.tareas?.filter((task) => task.estado === "completada").length || 0),
         0

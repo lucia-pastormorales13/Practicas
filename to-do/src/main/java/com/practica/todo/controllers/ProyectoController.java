@@ -27,14 +27,20 @@ public class ProyectoController {
     private final ProyectoServ proyectoServices;
     private final Usuariosrep usuariosrepositorio;
 
-    // obtener los proyectos de un user (solo a los que pertenecen)
     @GetMapping("/listar-proyectos/{id_usuario}")
-    public ResponseEntity<List<Proyecto>> getProyectoByUsuario(@PathVariable Integer id_usuario) {
+    public ResponseEntity<?> getProyectoByUsuario(@PathVariable Integer id_usuario) {
 
-        return usuariosrepositorio.findById(id_usuario).map(usuario -> {
-            List<Proyecto> proyectos = proyectoServices.ListarMisProyectos(usuario);
-            return new ResponseEntity<>(proyectos, HttpStatus.OK);
-        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return usuariosrepositorio.findById(id_usuario)
+                .map(usuario -> {
+                    List<Proyecto> proyectos =
+                            proyectoServices.ListarMisProyectos(usuario);
+                    return ResponseEntity.ok(proyectos);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 
+    @GetMapping("/miembros/{idProyecto}")
+    public ResponseEntity<Integer> countMiembros(@PathVariable Integer idProyecto) {
+        return ResponseEntity.ok(proyectoServices.countMiembros(idProyecto));
     }
 }

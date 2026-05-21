@@ -185,11 +185,11 @@ export default function DashboardGestor() {
                 <div className="lg:col-span-2">
                     {selectedProject ? (
                         <div className="bg-white rounded-2xl shadow-sm">
-                            <div className="p-6 border-b border-border">
+                            <div className="p-6 border-b border-gray-200">
                                 <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
                                     <div className="flex-1">
                                         <h2 className="text-2xl mb-2">{selectedProject.nombre}</h2>
-                                        <p className="text-muted-foreground">{selectedProject.descripcion}</p>
+                                        <p className="text-mauve-400">{selectedProject.descripcion}</p>
                                     </div>
                                     <div className="flex gap-2">
                                         <Link
@@ -211,21 +211,21 @@ export default function DashboardGestor() {
 
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                     <div className="flex items-center gap-2 text-sm">
-                                        <FontAwesomeIcon className="w-4 h-4 text-muted-foreground" icon={faCalendar} />
+                                        <FontAwesomeIcon className="text-mauve-400 text-xl" icon={faCalendar} />
                                         <div>
                                             <p className="text-xs text-muted-foreground">Inicio</p>
                                             <p>{selectedProject.fecha_inicio}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2 text-sm">
-                                        <FontAwesomeIcon icon={faClock} />
+                                        <FontAwesomeIcon className="text-mauve-400 text-xl" icon={faClock} />
                                         <div>
                                             <p className="text-xs text-muted-foreground">Fin</p>
                                             <p>{selectedProject.fecha_limite}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2 text-sm">
-                                        <FontAwesomeIcon icon={faUser} />
+                                        <FontAwesomeIcon className="text-mauve-400 text-xl" icon={faUser} />
                                         <div>
                                             <p className="text-xs text-muted-foreground">Miembros</p>
                                             {miembros[selectedProject.id_proyecto] || 0}
@@ -237,18 +237,19 @@ export default function DashboardGestor() {
                             <div className="p-6">
                                 <div className="flex justify-between items-center mb-4">
                                     <h3 className="text-lg">Tareas</h3>
-                                    <button
+                                    <Link
+                                        to={`/crear-tarea/${selectedProject.id_proyecto}`}
                                         className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all text-sm"
                                     >
                                         <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
                                         Nueva Tarea
-                                    </button>
+                                    </Link>
                                 </div>
 
                                 <div className="space-y-3">
                                     {tasks.length === 0 ? (
                                         <div className="text-center py-8 text-muted-foreground">
-                                            <FontAwesomeIcon icon={faList} className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                                            <FontAwesomeIcon icon={faList} className="text-xl p-2 opacity-50" />
                                             <p className="text-sm">No hay tareas en este proyecto</p>
                                         </div>
                                     ) : (

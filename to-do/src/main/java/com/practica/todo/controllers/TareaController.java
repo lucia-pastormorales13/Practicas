@@ -25,14 +25,14 @@ class TareaController {
     @Autowired
     private TareaServ tareaServ;
 
-    @PostMapping("/crear")
-    public ResponseEntity<?> editarTarea(@RequestBody Tarea tarea){
+    @PostMapping("/crear/{id_proyecto}")
+    public ResponseEntity<?> crearTarea(@RequestBody Tarea tarea, @PathVariable int id_proyecto){
         try{
-            Tarea TareaActualizada= tareaServ.editarTarea(tarea);
-            return ResponseEntity.ok(TareaActualizada);
+            Tarea t= tareaServ.crearTarea(id_proyecto, tarea);
+            return ResponseEntity.ok(t);
 
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al editar: "+ e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al crear: "+ e.getMessage());
         }
 
     }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -94,6 +95,16 @@ class TareaController {
             }
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
+    }
+
+    @GetMapping("/listar-miembros/{id_proyecto}")
+    public ResponseEntity<?> listarMiembrosProyecto(@PathVariable int id_proyecto) {
+        try {
+            List<?> miembros = tareaServ.listarMiembrosProyecto(id_proyecto);
+            return ResponseEntity.ok(miembros);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al listar los miembros del proyecto: " + e.getMessage());
+        }
     }
 
 }

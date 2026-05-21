@@ -1,3 +1,4 @@
+import api from "../../lib/api";
 import Layout from "../layout/Layout";
 import { useState } from "react";
 
@@ -7,12 +8,15 @@ export default function CrearTarea() {
         descripcion: "",
         prioridad: "",
         estado: "",
-        fecha_entrega: "",
-        id_proyecto: null
+        fecha_entrega: ""
     });
     const [users, setUsers] = useState([]);
 
-
+    const fetchUsuarios = () => {
+        api.get("/gestor/listar-usuarios-gestor")
+            .then((res) => setUsers(res.data))
+            .catch((err) => console.log(err))
+    }
 
     return (
         <Layout titulo="Crear Tarea">
@@ -69,8 +73,8 @@ export default function CrearTarea() {
                                 required
                             >
                                 <option value="">Seleccionar usuario</option>
-                                {availableUsers.map((user) => (
-                                    <option key={user.id} value={user.id}>
+                                {users.map((user) => (
+                                    <option key={user.id} value={user.id_usuario}>
                                         {user.name} ({user.email})
                                     </option>
                                 ))}

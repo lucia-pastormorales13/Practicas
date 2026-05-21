@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.practica.todo.entidades.Proyecto;
 import com.practica.todo.entidades.ProyectoUsuarios;
 import com.practica.todo.entidades.Tarea;
+import com.practica.todo.entidades.Usuario;
 import com.practica.todo.repositorios.ProyectoUsuariosrep;
 import com.practica.todo.repositorios.Proyectorep;
 import com.practica.todo.repositorios.Tareasrep;
@@ -64,5 +65,13 @@ public class TareaServ {
 
     public Tarea buscarporId(int id_tarea) throws Exception{
         return tareaRepository.findById(id_tarea).orElseThrow(()-> new Exception("Tarea no encobtrada"));
+    }
+
+    public List<Usuario> listarMiembrosProyecto(int id_proyecto) throws Exception {
+        Proyecto proyecto = proyectoRepository.findById(id_proyecto).orElseThrow(() -> new Exception("Proyecto no encontrado"));
+        List<ProyectoUsuarios> miembrosProyecto = proyectoUsuariosRep.findByProyecto_Id_proyecto(proyecto.getId_proyecto());
+        return miembrosProyecto.stream()
+                .map(ProyectoUsuarios::getUsuario)
+                .toList();
     }
 }
